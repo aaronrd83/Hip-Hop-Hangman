@@ -38,12 +38,12 @@ document.onkeyup = function(event) {
 if (randomWord.indexOf(userGuess) == -1)  {
     guessesLeft--;
     document.querySelector('#guessesLeft').textContent(appendChild)
-    
-}
+
+
 //update letters
 
 for (var i = 0; i < randomWord.length; i++)
-}
+;
 
 
 
@@ -57,6 +57,4 @@ for (var i = 0; i < randomWord.length; i++)
 //6. user guesses correctly
 //7. User guesses incorrectly
 //8. User Wins
-//9. User Loses
-
-
+//9. User Losses
