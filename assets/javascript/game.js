@@ -4,57 +4,107 @@ var wordBank = ["kendrick lamar", "logic", "ice cube", "dr dre", "dave east",
 "eminem", "kanye west", "tupac shakur", "drake", "rakim", "big sean", "slick rick",
 "j cole", "busta rhymes", "common", "scarface", "bun b", "pimp c", "donald glover"];
 
-var wins = 0;
-var loss = 0;
-var wrongLetter = [];
+var randomWord; "";
+var wordLetters = [];
+var letterBlanks = 0;
+var blanksForGuesses = [];
+var wrongLetters = [];
+
+var winCount = 0;
+var lossCount = 0;
 var guessesLeft = 9;
-var underScores = [];
-var userGuesses = [];
-var randomWord;
 
-//2. Pick a Random Word
-
-var randomWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-console.log(randomWord)
+function startGame() {
+    randomWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+    wordLetters = randomWord.split("");
+    letterBlanks = wordLetters.length;
 
 
 
+//RESET
+    guessesLeft = 9;
+    wrongLetters = [];
+    blanksForGuesses = [];
 
-var updateGuessesLeft = function () {
-    document.querySelector('#letters-guessed').innerHTML = "Letters Guessed: " + userGuesses.join(', ')
+    for (var i=0; i < letterBlanks; i++) {
+        blanksForGuesses.push("_");
+    }
+
+    document.getElementById("wordGuess").innerHTML = blanksForGuesses.join(" ");
+    document.getElementById("numGuesses").innerHTML = guessesLeft;
+    document.getElementById("winCount").innerHTML = winCount;
+    document.getElementById("lossCount").innerHTML = lossCount;
 }
 
-var answerArray = [];
-for (var i = 0; i < randomWord.length; i++) {
-    answerArray[i] = "_";
+
+//Letter checks
+function checkLetters(letter) {
+    var isLetterInWord = false;
+
+    for (var i=0; i<letterBlanks; i++) {
+        if(randomWord[i] == letter) {
+            isLetterInWord = true;
+        }
+    }
+
+
+    if (isLetterInWord) {
+        for (var i=0; i<letterBlanks; i++) {
+            if(randomWord[i] == letter) {
+                blanksForGuesses[i] = letter;
+            }
+        }
+    }
+
+    else {
+        wrongLetters.push(letter);
+        guessesLeft--
+    }
+
+
+function gameOver() {
+    console.log("Win Count: " + winCount + " | Loss Count: " + lossCount + " | Guesses Left:" + numGuesses);
+
+    
+    document.getElementById("numGuesses").innerHTML = guessesLeft;
+    document.getElementById("wordGuess").innerHTML = blanksForGuesses.join(" ");
+    document.getElementById("wrongGuesses").innerHTML = wrongLetters.join(" ");
+    
+    if (wordLetters.toString() == blanksForGuesses.toString()) {
+        winCount++;
+        alert("Winner");
+
+        document.getElementById("winCount").innerHTML = winCount;
+
+        startGame();
+    }
+
+    else if (guessesLeft = 0) {
+        lossCount++;
+        alert("You Lose!");
+
+        document.getElementById("lossCount").innerHTML = lossCount;
+
+        startGame();
+
+    }
 }
 
+startGame();
 
 document.onkeyup = function(event) {
-    var userGuess = event.key.toLowerCase()
+    var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+    checkLetters(lettersGuessed);
+    gameOver();
+    }
 
-    document.querySelector("#wordIs").innerHTML = answerArray;
+};
 
-if (randomWord.indexOf(userGuess) == -1)  {
-    guessesLeft--;
-    document.querySelector('#guessesLeft').textContent(appendChild)
-
-
-//update letters
-
-for (var i = 0; i < randomWord.length; i++)
-;
-
-
-
+//2. update letters
 //3. Make spaces for the random word Letters
-
-
-//var remainingLetters = randomWord.length;
-//4. Get a guess from player
-
-//5. Update Game state based on player guess
-//6. user guesses correctly
-//7. User guesses incorrectly
-//8. User Wins
-//9. User Losses
+//4. remainingLetters = randomWord.length
+//5. Get a guess from player
+//6. Update Game state based on player guess
+//7. user guesses correctly
+//8. User guesses incorrectly
+//9. User win

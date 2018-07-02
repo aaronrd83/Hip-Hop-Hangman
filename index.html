@@ -6,26 +6,63 @@
     <title>Hip-Hop Hangman</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="assets/javascript/game.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<script src="assets/javascript/game.js"></script> -->
 </head>
 <body>
-<div class="jumbotron">
-    <h1 class="display-4">Hip-Hop Hangman</h1>
-    <p class="lead">Try to guess the name of famous Hip-Hop Artists</p>
-    <hr class="my-4">
-    <p>You have <span id="guessesLeft"></span> guesses to name the famous Hip-Hop Artist</p>
 
-    <p>Letters Guessed: <span id="letters-guessed"></span></p>
-    <hr>
-    <p>You're word is:</p><span id="wordIs">
-    <hr>
-    <p>Incorrect Letters: <span id="wrong-letters"></span></p>
-    <hr>
-    <p>Wins: <span id="wins"></span></p>
-    <hr>
-    <p>Losses: <span id="losses"></span></p>
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1 class="display-4">Hip-Hop Hangman</h1>
+            <p class="lead">Try to guess the name of famous Hip-Hop Artists</p>
+            <p>You have <span id="guessesLeft"></span> guesses to name the famous Hip-Hop Artist</p>
+        </div>
+<hr>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Name the Artist</h3>
+            </div>
+            <div class="panel-body">
+                <h2 id="wordGuess">_ _ _ _ _ _ _ _ _</h2>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Wrong Guessed: <span id="wrongGuesses"></span>
+            </div>
+          </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Guesses Left: <span id="numGuesses"></span>
+            </div>
+          </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Wins: <span id=w"winCount"></span>
+            </div>
+          </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Losses: <span id=:"lossCount"></span>
+            </div>
+          </div>
+
+        
+
+
+    </div>
+
 </div>
+
+
+<script src="assets/javascript/game.js"></script>
 
 </body>
 </html>
