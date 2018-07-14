@@ -1,90 +1,91 @@
 //1. Pick Array of Words
-var wordBank = ["kendrick lamar", "logic", "ice cube", "dr dre", "dave east",
-"nas", "trae the truth","future", "notorious big", "the game", "snoop dogg",
-"eminem", "kanye west", "tupac shakur", "drake", "rakim", "big sean", "slick rick",
-"j cole", "busta rhymes", "common", "scarface", "bun b", "pimp c", "donald glover"];
-
-var randomWord; "";
+var wordBank = ["nas", "tupac", "eminem", "drake", "xxxtentacion", "future",
+"common", "offset", "rakim", "migos", "quavo", "logic", "ludacris", "scarface", "nelly", "yelawolf",
+"redman"];
+//variables (global)
+var randomWord;
+var userGuess = "";
 var wordLetters = [];
 var letterBlanks = 0;
 var blanksForGuesses = [];
-var wrongLetters = [];
+var guessedLetters = [];
+var guessesLeft = 9;
 
 var winCount = 0;
 var lossCount = 0;
-var guessesLeft = 9;
 
+
+
+ $("#numGuesses").text(guessesLeft)
+ $("#winCount").text(winCount)
+ $("#lossCount").text(lossCount)
+
+//Start Game Function
 function startGame() {
+    guessedLetters = [];
+    guessesLeft = 9;
     randomWord = wordBank[Math.floor(Math.random() * wordBank.length)];
     wordLetters = randomWord.split("");
     letterBlanks = wordLetters.length;
+    console.log("test")
+   
 
 
-
-//RESET
-    guessesLeft = 9;
-    wrongLetters = [];
-    blanksForGuesses = [];
-
+//RESET GameBoard
     for (var i=0; i < letterBlanks; i++) {
         blanksForGuesses.push("_");
     }
 
     document.getElementById("wordGuess").innerHTML = blanksForGuesses.join(" ");
-    document.getElementById("numGuesses").innerHTML = guessesLeft;
-    document.getElementById("winCount").innerHTML = winCount;
-    document.getElementById("lossCount").innerHTML = lossCount;
-}
+    document.getElementById("wrongGuesses").innerHTML = guessedLetters    
 
+}
 
 //Letter checks
 function checkLetters(letter) {
-    var isLetterInWord = false;
+var userGuess = "";
 
-    for (var i=0; i<letterBlanks; i++) {
-        if(randomWord[i] == letter) {
-            isLetterInWord = true;
-        }
+if (guessedLetters.includes(letter) === false) {
+    guessedLetters.push(letter)
+    document.getElementById("wrongGuesses").innerHTML = guessedLetters;
+    guessesLeft--;
+    console.log("guessesLeft", guessesLeft)
+    $("#numGuesses").text(guessesLeft)
+}
+
+for (var i = 0; i<wordLetters.length; i++) {
+    if (guessedLetters.includes(wordLetters[i]) === true) {
+        userGuess += wordLetters[i];
     }
-
-
-    if (isLetterInWord) {
-        for (var i=0; i<letterBlanks; i++) {
-            if(randomWord[i] == letter) {
-                blanksForGuesses[i] = letter;
-            }
-        }
-    }
-
     else {
-        wrongLetters.push(letter);
-        guessesLeft--
+        userGuess += " _ "
     }
+    
+}
+document.getElementById("wordGuess").innerHTML = userGuess
 
+gameOver();
+}
 
+//Game Over Function
 function gameOver() {
-    console.log("Win Count: " + winCount + " | Loss Count: " + lossCount + " | Guesses Left:" + numGuesses);
+    console.log("Win Count: " + winCount + " | Loss Count: " + lossCount + " | Guesses Left:" + guessesLeft);
 
     
-    document.getElementById("numGuesses").innerHTML = guessesLeft;
-    document.getElementById("wordGuess").innerHTML = blanksForGuesses.join(" ");
-    document.getElementById("wrongGuesses").innerHTML = wrongLetters.join(" ");
-    
-    if (wordLetters.toString() == blanksForGuesses.toString()) {
+
+    //User Wins
+    if (wordLetters.toString() === randomWord.toString()) {
         winCount++;
+        $("#winCount").text(winCount)
         alert("Winner");
-
-        document.getElementById("winCount").innerHTML = winCount;
-
         startGame();
     }
 
-    else if (guessesLeft = 0) {
+    //User Loses
+    else if (guessesLeft === 0) {
         lossCount++;
+        $("#lossCount").text(lossCount)
         alert("You Lose!");
-
-        document.getElementById("lossCount").innerHTML = lossCount;
-
         startGame();
 
     }
@@ -93,13 +94,12 @@ function gameOver() {
 startGame();
 
 document.onkeyup = function(event) {
-    var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+    var lettersGuessed = String.fromCharCode(event.keyCode).toLowerCase();
     checkLetters(lettersGuessed);
-    gameOver();
     }
+;
 
-};
-
+ gameOver();
 //2. update letters
 //3. Make spaces for the random word Letters
 //4. remainingLetters = randomWord.length
