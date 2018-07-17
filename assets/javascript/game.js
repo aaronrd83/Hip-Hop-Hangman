@@ -4,7 +4,7 @@ var wordBank = ["nas", "tupac", "eminem", "drake", "xxxtentacion", "future",
 "redman"];
 //variables (global)
 var randomWord;
-var userGuess = "";
+var userGuess
 var wordLetters = [];
 var letterBlanks = 0;
 var blanksForGuesses = [];
@@ -22,6 +22,7 @@ var lossCount = 0;
 
 //Start Game Function
 function startGame() {
+    blanksForGuesses = [];
     guessedLetters = [];
     guessesLeft = 9;
     randomWord = wordBank[Math.floor(Math.random() * wordBank.length)];
@@ -36,18 +37,18 @@ function startGame() {
         blanksForGuesses.push("_");
     }
 
-    document.getElementById("wordGuess").innerHTML = blanksForGuesses.join(" ");
-    document.getElementById("wrongGuesses").innerHTML = guessedLetters    
+    $("#wordGuess").html(blanksForGuesses.join(" "));
+    $("#wrongGuesses").html(guessedLetters);    
 
 }
 
 //Letter checks
 function checkLetters(letter) {
-var userGuess = "";
+userGuess = "";
 
 if (guessedLetters.includes(letter) === false) {
     guessedLetters.push(letter)
-    document.getElementById("wrongGuesses").innerHTML = guessedLetters;
+    $("#wrongGuesses").html(guessedLetters);
     guessesLeft--;
     console.log("guessesLeft", guessesLeft)
     $("#numGuesses").text(guessesLeft)
@@ -62,7 +63,7 @@ for (var i = 0; i<wordLetters.length; i++) {
     }
     
 }
-document.getElementById("wordGuess").innerHTML = userGuess
+$("#wordGuess").html(userGuess)
 
 gameOver();
 }
@@ -74,7 +75,7 @@ function gameOver() {
     
 
     //User Wins
-    if (wordLetters.toString() === randomWord.toString()) {
+    if (userGuess === randomWord) {
         winCount++;
         $("#winCount").text(winCount)
         alert("Winner");
